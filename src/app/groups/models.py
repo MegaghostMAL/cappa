@@ -100,7 +100,7 @@ class GroupCourse(models.Model):
         unique_together = ['group', 'course']
 
     group = models.ForeignKey(Group, related_name='group_courses')
-    course = models.ForeignKey(Course, verbose_name='курс', limit_choices_to={'show': True})
+    course = models.ForeignKey(Course, verbose_name='курс')
     show_table = models.BooleanField(verbose_name='отображать таблицу результатов', default=False)
 
     def __str__(self):

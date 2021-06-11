@@ -1,6 +1,17 @@
 {% extends 'training/base.html' %}
 {% load static training_tags %}
 
+{% block breadcrumbs %}
+    {% if not hide_breadcrumbs %}
+        {{ block.super }}
+    {% endif %}
+{% endblock %}
+
+{% block sidebar %}
+    {% if not hide_breadcrumbs %}
+        {{ block.super }}
+    {% endif %}
+{% endblock %}
 
 {% block content %}
     <div class="one-col">

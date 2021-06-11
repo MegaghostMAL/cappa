@@ -3,6 +3,7 @@ from django.views.generic.base import TemplateView
 from django.conf import settings
 from django.views.static import serve
 from django.contrib import admin
+from app.training.views import TaskItemView2, SolutionView2
 
 
 urlpatterns = [
@@ -10,6 +11,8 @@ urlpatterns = [
     url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
     url(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
     url(r'^courses/', include('app.training.urls', namespace='training')),
+    url(r'^tasks/(?P<taskitem>[a-z0-9-]+)/$', TaskItemView2.as_view(), name='taskitem2'),
+    url(r'^tasks/(?P<taskitem>[a-z0-9-]+)/solution/$', SolutionView2.as_view(), name='solution2'),
     url(r'^groups/', include('app.groups.urls', namespace='groups')),
     url(r'^tinymce/', include('tinymce.urls')),
     url(r'^', include('app.profile.urls', namespace='profile')),

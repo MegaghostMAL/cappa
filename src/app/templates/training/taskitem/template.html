@@ -1,6 +1,17 @@
 {% extends 'training/base.html' %}
 {% load static taskitem_tags training_tags %}
 
+{% block breadcrumbs %}
+    {% if not hide_breadcrumbs %}
+        {{ block.super }}
+    {% endif %}
+{% endblock %}
+
+{% block sidebar %}
+    {% if not hide_breadcrumbs %}
+        {{ block.super }}
+    {% endif %}
+{% endblock %}
 
 {% block content %}
     <div class="one-col">
@@ -48,7 +59,11 @@
                             <div class="js__editor-btn js__editor-btn-versions
                                  {% if not solution %} not-versions{% endif %}"
                                  title="Страница решения"
-                                 onclick="window.open('{{ object.get_absolute_url }}solution/?user={{ request.user.id }}', '_blank')"
+                                 {% if hide_breadcrumbs %}
+                                    onclick="window.open('/tasks/{{ object.slug }}/solution/', '_blank')"
+                                 {% else %}
+                                    onclick="window.open('{{ object.get_absolute_url }}solution/?user={{ request.user.id }}', '_blank')"
+                                 {% endif %}
                             ></div>
                             <div class="js__editor-btn js__editor-btn-version" title="Создать версию решения"></div>
                             <div class="js__editor-btn js__editor-btn-save

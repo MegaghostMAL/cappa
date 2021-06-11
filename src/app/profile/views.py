@@ -4,6 +4,7 @@ from app.profile.forms import SignInForm, SignupForm
 from django.contrib.auth import login, logout as auth_logout
 from app.service.models.site import SiteSettings
 from app.profile.mixins import NextPathMixin
+from app.groups.models import Group, GroupMember
 
 
 class SignInView(View, NextPathMixin):
@@ -82,6 +83,9 @@ class SignUpView(View, NextPathMixin):
             else:
                 user = form.save()
                 login(request, user)
+            common_group = Group.objects.filter(title='Отборочный этап').first()
+            if common_group:
+                GroupMember.objects.create(user=user, group=common_group)
             return redirect(form.cleaned_data.get('next', self.HOME_PATH))
         else:
             return render(
