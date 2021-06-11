@@ -17,7 +17,11 @@
     <div class="one-col">
         <div class="white fp-content">
             <h1 class="text-center">
+            {% if not hide_breadcrumbs %}
                 <span>{{ object.numbered_title }}</span>
+            {% else %}
+                <span>{{ object.title }}</span>
+            {% endif %}
             </h1>
             <h3>Условие</h3><br/>
             {{ object.task.content|safe }}
