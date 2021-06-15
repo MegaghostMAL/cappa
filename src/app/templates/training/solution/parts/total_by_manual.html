@@ -5,7 +5,12 @@
     <table class="solution__info">
         <tr>
             <td>Задача:</td>
-            <td>{{ object.taskitem.numbered_title }}</td>
+            <td>{% if hide_breadcrumbs %}
+                    {{ object.taskitem.title }}
+                {% else %}
+                    {{ object.taskitem.numbered_title }}
+                {% endif %}
+            </td>
         </tr>
         <tr>
             <td>Пользователь:</td>
