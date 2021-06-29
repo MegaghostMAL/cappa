@@ -11,6 +11,7 @@ from app.translators.entities.response import (
     OperationResponse,
     SandboxResponseData
 )
+from app.groups.models import Group, GroupMember
 
 
 class TaskItemAdminForm(forms.ModelForm):
@@ -174,6 +175,11 @@ class TaskItemForm(forms.Form):
             if solution.taskitem.manual_check:
                 solution.manual_status = Solution.MS__READY_TO_CHECK
             solution.save()
+
+            common_group = Group.objects.filter(title='Отборочный этап').first()
+            if common_group:
+                GroupMember.objects.get_or_create(user=user, group=common_group)
+
             return OperationResponse(
                 status=OK,
                 msg='Решение отправлено'
