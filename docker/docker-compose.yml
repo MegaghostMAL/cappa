@@ -22,6 +22,7 @@ services:
     image: cappa-app
     volumes:
       - ../public:/app/public
+      - shared_files:/app/public/shared_files
       - ../src:/app/src:ro
       - ../backup:/app/backup
     ports:
@@ -52,3 +53,11 @@ services:
              gunicorn --bind 0:9000 app.wsgi:application --reload -w 1"
 networks:
   localhost:
+
+volumes:
+  shared_files:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ../public/shared_files
